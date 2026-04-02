@@ -1,1069 +1,724 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uber Commute - Strategic Product Plan | by Manas Ghodinde</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --uber-black: #000000;
-            --uber-dark: #0D0D0D;
-            --uber-surface: #141414;
-            --uber-card: #1A1A1A;
-            --uber-card-hover: #222222;
-            --uber-border: #2A2A2A;
-            --uber-green: #06C167;
-            --uber-green-dim: #05A459;
-            --uber-blue: #276EF1;
-            --uber-yellow: #FFC043;
-            --uber-red: #D44333;
-            --uber-white: #FFFFFF;
-            --uber-gray-100: #F6F6F6;
-            --uber-gray-200: #E2E2E2;
-            --uber-gray-300: #B0B0B0;
-            --uber-gray-400: #6B6B6B;
-            --uber-gray-500: #484848;
-            --font-display: 'Plus Jakarta Sans', sans-serif;
-            --font-body: 'DM Sans', sans-serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--uber-black);
-            color: var(--uber-white);
-            overflow-x: hidden;
-        }
-
-        /* ===== NAVIGATION ===== */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 16px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--uber-border);
-        }
-
-        .nav-brand {
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 20px;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-brand span {
-            color: var(--uber-green);
-        }
-
-        /* ===== SECTIONS ===== */
-        .section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 100px 48px;
-            position: relative;
-        }
-
-        .section-inner {
-            max-width: 1100px;
-            width: 100%;
-        }
-
-        .section-tag {
-            font-family: var(--font-display);
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--uber-green);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .section-tag::before {
-            content: '';
-            width: 24px;
-            height: 2px;
-            background: var(--uber-green);
-            display: inline-block;
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -1.5px;
-            margin-bottom: 24px;
-        }
-
-        .section-subtitle {
-            font-size: 18px;
-            color: var(--uber-gray-300);
-            line-height: 1.6;
-            max-width: 600px;
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 100px 48px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(6,193,103,0.08) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 20px;
-            border: 1px solid var(--uber-border);
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--uber-gray-300);
-            margin-bottom: 40px;
-            background: var(--uber-surface);
-        }
-
-        .hero-badge-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--uber-green);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        .hero h1 {
-            font-family: var(--font-display);
-            font-size: clamp(48px, 8vw, 88px);
-            font-weight: 800;
-            line-height: 1.0;
-            letter-spacing: -3px;
-            margin-bottom: 24px;
-        }
-
-        .hero h1 span {
-            color: var(--uber-green);
-        }
-
-        .hero p {
-            font-size: 20px;
-            color: var(--uber-gray-300);
-            max-width: 560px;
-            margin: 0 auto 48px;
-            line-height: 1.6;
-        }
-
-        .hero-author {
-            font-size: 14px;
-            color: var(--uber-gray-400);
-        }
-
-        .hero-author strong {
-            color: var(--uber-gray-200);
-        }
-
-        /* ===== CARDS GRID ===== */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-top: 40px;
-        }
-
-        .card {
-            background: var(--uber-card);
-            border: 1px solid var(--uber-border);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            background: var(--uber-card-hover);
-            border-color: var(--uber-gray-500);
-            transform: translateY(-2px);
-        }
-
-        .card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            margin-bottom: 20px;
-        }
-
-        .card-icon.green { background: rgba(6,193,103,0.15); }
-        .card-icon.blue { background: rgba(39,110,241,0.15); }
-        .card-icon.yellow { background: rgba(255,192,67,0.15); }
-        .card-icon.red { background: rgba(212,67,51,0.15); }
-
-        .card h3 {
-            font-family: var(--font-display);
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.3px;
-        }
-
-        .card p {
-            font-size: 14px;
-            color: var(--uber-gray-300);
-            line-height: 1.5;
-        }
-
-        /* ===== VISION LAYOUT ===== */
-        .vision-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-            margin-top: 40px;
-        }
-
-        .vision-mission {
-            background: var(--uber-card);
-            border: 1px solid var(--uber-border);
-            border-radius: 16px;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .vision-mission h3 {
-            font-family: var(--font-display);
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--uber-green);
-            margin-bottom: 16px;
-        }
-
-        .vision-mission p {
-            font-size: 15px;
-            color: var(--uber-gray-300);
-            line-height: 1.7;
-        }
-
-        .vision-pillars {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .vision-pillar {
-            background: var(--uber-card);
-            border: 1px solid var(--uber-border);
-            border-radius: 16px;
-            padding: 24px;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .vision-pillar:hover {
-            background: var(--uber-card-hover);
-        }
-
-        .vision-pillar .pillar-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: rgba(6,193,103,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .vision-pillar h4 {
-            font-family: var(--font-display);
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .vision-pillar p {
-            font-size: 13px;
-            color: var(--uber-gray-300);
-            line-height: 1.5;
-        }
-
-        /* ===== TWO TRACK ===== */
-        .two-track {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .track-card {
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--uber-border);
-        }
-
-        .track-header {
-            padding: 24px 28px;
-            font-family: var(--font-display);
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .track-header.green-bg { background: var(--uber-green); color: var(--uber-black); }
-        .track-header.blue-bg { background: var(--uber-blue); color: var(--uber-white); }
-
-        .track-body {
-            background: var(--uber-card);
-            padding: 28px;
-        }
-
-        .track-body h4 {
-            font-family: var(--font-display);
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--uber-gray-200);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .track-body ul {
-            list-style: none;
-            margin-bottom: 24px;
-        }
-
-        .track-body ul:last-child {
-            margin-bottom: 0;
-        }
-
-        .track-body li {
-            font-size: 14px;
-            color: var(--uber-gray-300);
-            padding: 6px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .track-body li::before {
-            content: '✓';
-            color: var(--uber-green);
-            font-weight: 700;
-            font-size: 13px;
-            flex-shrink: 0;
-        }
-
-        /* ===== JOURNEY ===== */
-        .journey-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-top: 40px;
-        }
-
-        .journey-card {
-            background: var(--uber-card);
-            border: 1px solid var(--uber-border);
-            border-radius: 16px;
-            padding: 32px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .journey-card:hover {
-            border-color: var(--uber-green);
-        }
-
-        .journey-num {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--uber-green);
-            color: var(--uber-black);
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-        }
-
-        .journey-card h4 {
-            font-family: var(--font-display);
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .journey-card p {
-            font-size: 14px;
-            color: var(--uber-gray-300);
-            line-height: 1.5;
-        }
-
-        /* ===== ASSEMBLY ===== */
-        .assembly-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-            margin-top: 40px;
-        }
-
-        .assembly-explain {
-            background: var(--uber-card);
-            border: 1px solid var(--uber-border);
-            border-radius: 16px;
-            padding: 40px;
-        }
-
-        .assembly-explain h3 {
-            font-family: var(--font-display);
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--uber-green);
-            margin-bottom: 16px;
-        }
-
-        .assembly-explain p {
-            font-size: 15px;
-            color: var(--uber-gray-300);
-            line-height: 1.7;
-        }
-
-        .assembly-benefits {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .benefit-card {
-            background: var(--uber-card);
-            border: 1px solid var(--uber-border);
-            border-radius: 16px;
-            padding: 20px 24px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .benefit-card:hover {
-            background: var(--uber-card-hover);
-        }
-
-        .benefit-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: rgba(6,193,103,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .benefit-card h4 {
-            font-family: var(--font-display);
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .benefit-card p {
-            font-size: 13px;
-            color: var(--uber-gray-300);
-        }
-
-        /* ===== TABLE ===== */
-        .scale-table {
-            margin-top: 40px;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--uber-border);
-        }
-
-        .table-header {
-            display: grid;
-            grid-template-columns: 1.2fr 2fr 1.8fr;
-            background: var(--uber-green);
-            padding: 16px 28px;
-        }
-
-        .table-header span {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--uber-black);
-        }
-
-        .table-row {
-            display: grid;
-            grid-template-columns: 1.2fr 2fr 1.8fr;
-            padding: 14px 28px;
-            border-bottom: 1px solid var(--uber-border);
-            transition: background 0.2s ease;
-        }
-
-        .table-row:last-child { border-bottom: none; }
-
-        .table-row:nth-child(even) { background: var(--uber-surface); }
-        .table-row:nth-child(odd) { background: var(--uber-card); }
-
-        .table-row:hover { background: var(--uber-card-hover); }
-
-        .table-row .city {
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .table-row .corridor,
-        .table-row .value {
-            font-size: 14px;
-            color: var(--uber-gray-300);
-        }
-
-        .table-note {
-            text-align: center;
-            padding: 20px;
-            font-size: 13px;
-            font-style: italic;
-            color: var(--uber-gray-400);
-            background: var(--uber-surface);
-        }
-
-        /* ===== TIMELINE ===== */
-        .timeline {
-            margin-top: 40px;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--uber-border);
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 32px;
-            margin-bottom: 24px;
-            position: relative;
-        }
-
-        .timeline-item:last-child { margin-bottom: 0; }
-
-        .timeline-dot {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .timeline-dot.phase1 { background: var(--uber-green); }
-        .timeline-dot.phase2 { background: var(--uber-green-dim); }
-        .timeline-dot.phase3 { background: var(--uber-blue); }
-        .timeline-dot.phase4 { background: var(--uber-yellow); }
-
-        .timeline-dot svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .timeline-content {
-            background: var(--uber-card);
-            border: 1px solid var(--uber-border);
-            border-radius: 16px;
-            padding: 24px 28px;
-            flex: 1;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            background: var(--uber-card-hover);
-        }
-
-        .timeline-period {
-            font-family: var(--font-display);
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--uber-green);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 4px;
-        }
-
-        .timeline-content h4 {
-            font-family: var(--font-display);
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .timeline-content p {
-            font-size: 14px;
-            color: var(--uber-gray-300);
-            line-height: 1.5;
-        }
-
-        /* ===== STATS BAR ===== */
-        .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 48px;
-        }
-
-        .stat-item {
-            background: var(--uber-card);
-            border: 1px solid var(--uber-border);
-            border-radius: 16px;
-            padding: 28px;
-            text-align: center;
-        }
-
-        .stat-num {
-            font-family: var(--font-display);
-            font-size: 40px;
-            font-weight: 800;
-            color: var(--uber-green);
-            letter-spacing: -2px;
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--uber-gray-400);
-        }
-
-        /* ===== ANIMATIONS ===== */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .section { padding: 80px 24px; }
-            .hero { padding: 80px 24px; }
-            .cards-grid,
-            .vision-layout,
-            .two-track,
-            .journey-grid,
-            .assembly-layout { grid-template-columns: 1fr; }
-            .stats-bar { grid-template-columns: 1fr; }
-            .table-header, .table-row {
-                grid-template-columns: 1fr;
-                gap: 4px;
-            }
-            .nav { padding: 12px 20px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uber Commute — Strategic Product Plan by Manas Ghodinde</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,900&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #000000;
+  --off-black: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #1a1a1a;
+  --surface-3: #242424;
+  --border: rgba(255,255,255,0.1);
+  --border-strong: rgba(255,255,255,0.2);
+  --white: #ffffff;
+  --off-white: #f0f0f0;
+  --muted: #888888;
+  --faint: rgba(255,255,255,0.06);
+  --display: 'Barlow Condensed', 'Barlow', system-ui, sans-serif;
+  --sans: 'Barlow', system-ui, sans-serif;
+  --body: 'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--body);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 999; opacity: 0.4;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.1rem 3.5rem;
+  background: rgba(0,0,0,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+.uber-wordmark {
+  font-family: var(--sans);
+  font-size: 1.1rem; font-weight: 800;
+  color: var(--white); letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.nav-divider { width: 1px; height: 18px; background: var(--border-strong); }
+.nav-subtitle { font-family: var(--sans); font-size: 0.78rem; font-weight: 500; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.nav-back { font-family: var(--sans); font-size: 0.72rem; font-weight: 600; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+.nav-back:hover { color: var(--white); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 8rem 3.5rem 6rem;
+  position: relative; overflow: hidden;
+}
+
+.hero-bg-text {
+  position: absolute;
+  font-family: var(--display);
+  font-size: clamp(14rem, 30vw, 26rem);
+  font-weight: 900;
+  color: rgba(255,255,255,0.025);
+  letter-spacing: -0.06em;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+.hero-grid {
+  position: absolute; inset: 0;
+  overflow: hidden;
+}
+
+.hero-grid svg {
+  width: 100%; height: 100%;
+  position: absolute; inset: 0;
+}
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--white); color: var(--black);
+  font-family: var(--sans); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.4rem 1rem; border-radius: 2px;
+  margin-bottom: 2.5rem;
+  animation: fadeUp 0.6s 0.1s both;
+}
+
+.hero-title {
+  font-family: var(--display);
+  font-size: clamp(5rem, 13vw, 11rem);
+  font-weight: 900; line-height: 0.88;
+  letter-spacing: -0.03em; margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  animation: fadeUp 0.6s 0.2s both;
+}
+
+.hero-title-sub {
+  font-family: var(--display);
+  font-size: clamp(5rem, 13vw, 11rem);
+  font-weight: 900; line-height: 0.88;
+  letter-spacing: -0.03em; margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--white);
+  animation: fadeUp 0.6s 0.25s both;
+}
+
+.hero-summary {
+  font-size: 1.05rem; color: var(--muted); line-height: 1.75;
+  max-width: 540px; text-align: center; margin-bottom: 2.5rem;
+  animation: fadeUp 0.6s 0.35s both;
+}
+.hero-summary strong { color: var(--white); font-weight: 400; }
+
+.hero-byline {
+  font-family: var(--sans); font-size: 0.72rem; color: var(--muted);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 2.5rem;
+  animation: fadeUp 0.6s 0.4s both;
+}
+.hero-byline strong { color: var(--white); font-weight: 700; }
+
+.hero-stats {
+  display: flex; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  animation: fadeUp 0.6s 0.45s both;
+}
+.hero-stat {
+  padding: 1.25rem 2.5rem; border-right: 1px solid var(--border);
+  background: var(--surface);
+}
+.hero-stat:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--display);
+  font-size: 2rem; font-weight: 800;
+  color: var(--white); line-height: 1;
+  text-transform: uppercase;
+}
+.stat-label { font-family: var(--sans); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.3rem; }
+
+.scroll-cue {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  color: rgba(255,255,255,0.2); font-family: var(--sans); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+  animation: pulse-down 2.5s infinite;
+}
+.scroll-cue svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+@keyframes pulse-down {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+  50% { transform: translateX(-50%) translateY(6px); opacity: 0.7; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* DIVIDER */
+hr.rule { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* SECTIONS */
+.section { padding: 7rem 3.5rem; max-width: 1160px; margin: 0 auto; }
+
+.eyebrow {
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+}
+.eyebrow-num {
+  font-family: var(--sans); font-size: 0.65rem; font-weight: 700;
+  color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase;
+}
+.eyebrow-line { flex: 1; height: 1px; background: var(--border); max-width: 48px; }
+.eyebrow-label {
+  font-family: var(--sans); font-size: 0.65rem; font-weight: 700;
+  color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase;
+}
+
+.section-h {
+  font-family: var(--display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900; line-height: 0.95;
+  letter-spacing: -0.02em; margin-bottom: 1.25rem;
+  text-transform: uppercase;
+}
+.section-h em { color: transparent; -webkit-text-stroke: 1.5px var(--white); font-style: normal; }
+.section-sub { font-size: 1rem; color: var(--muted); max-width: 580px; line-height: 1.8; margin-bottom: 3.5rem; }
+
+/* QUAD */
+.quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.quad-card { background: var(--surface); padding: 2rem 1.75rem; transition: background 0.2s; }
+.quad-card:hover { background: var(--surface-2); }
+.quad-icon { margin-bottom: 1.25rem; }
+.quad-title { font-family: var(--sans); font-size: 0.88rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.quad-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+/* VISION SPLIT */
+.vision-split { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.vision-body { font-size: 0.97rem; color: var(--muted); line-height: 1.85; }
+.vision-body p + p { margin-top: 1.25rem; }
+.vision-body strong { color: var(--white); font-weight: 400; }
+.vision-cards { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.vision-card { display: flex; gap: 1.25rem; padding: 1.25rem 1.5rem; background: var(--surface); transition: background 0.2s; align-items: flex-start; }
+.vision-card:hover { background: var(--surface-2); }
+.vision-icon { flex-shrink: 0; margin-top: 0.1rem; }
+.vision-title { font-family: var(--sans); font-size: 0.85rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.vision-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+/* HOW SPLIT */
+.how-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; }
+.how-card { background: var(--surface); padding: 2.25rem; transition: background 0.2s; }
+.how-card:hover { background: var(--surface-2); }
+.how-card.primary { background: var(--white); }
+.how-card.primary:hover { background: var(--off-white); }
+.how-card.primary .how-card-label { color: var(--muted); }
+.how-card.primary .how-card-title { color: var(--black); }
+.how-card.primary .how-list li { color: #444; }
+.how-card.primary .how-list li::before { color: var(--black); }
+.how-card-label { font-family: var(--sans); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+.how-card-title { font-family: var(--display); font-size: 1.4rem; font-weight: 800; color: var(--white); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: -0.01em; }
+.how-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.how-list li { font-size: 0.83rem; color: var(--muted); padding-left: 1.2rem; position: relative; line-height: 1.55; }
+.how-list li::before { content: '—'; position: absolute; left: 0; color: var(--white); font-size: 0.7rem; }
+
+/* PULL QUOTE */
+.pull-quote { border-left: 3px solid var(--white); padding: 1.5rem 2rem; margin: 2.5rem 0; background: var(--surface); }
+.pull-quote p { font-family: var(--display); font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 700; line-height: 1.45; text-transform: uppercase; letter-spacing: -0.01em; color: var(--white); }
+.pull-quote p em { color: var(--muted); font-style: normal; }
+
+/* JOURNEY */
+.journey { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.journey-step { background: var(--surface); padding: 2rem 1.5rem; transition: background 0.2s; }
+.journey-step:hover { background: var(--surface-2); }
+.journey-num { font-family: var(--display); font-size: 3.5rem; font-weight: 900; color: rgba(255,255,255,0.12); line-height: 1; margin-bottom: 1.25rem; }
+.journey-title { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.journey-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
+
+/* ASSEMBLY */
+.assembly-split { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.assembly-body { font-size: 0.97rem; color: var(--muted); line-height: 1.85; }
+.assembly-body p + p { margin-top: 1.25rem; }
+.assembly-body strong { color: var(--white); font-weight: 400; }
+.assembly-cards { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.assembly-card { display: flex; gap: 1.25rem; padding: 1.25rem 1.5rem; background: var(--surface); transition: background 0.2s; align-items: flex-start; }
+.assembly-card:hover { background: var(--surface-2); }
+.assembly-icon { flex-shrink: 0; margin-top: 0.1rem; }
+.assembly-title { font-family: var(--sans); font-size: 0.85rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.assembly-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+/* TABLE */
+.scale-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.scale-table thead tr { background: var(--white); }
+.scale-table th { padding: 1rem 1.25rem; text-align: left; font-family: var(--sans); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--black); border-bottom: 1px solid var(--border); }
+.scale-table td { padding: 1rem 1.25rem; font-size: 0.85rem; color: var(--muted); border-bottom: 1px solid var(--border); background: var(--surface); transition: background 0.15s; }
+.scale-table tr:last-child td { border-bottom: none; }
+.scale-table tr:hover td { background: var(--surface-2); }
+.scale-table td:first-child { color: var(--white); font-weight: 500; }
+.scale-note { margin-top: 1.5rem; font-size: 0.82rem; color: var(--muted); font-style: italic; padding-left: 1rem; border-left: 2px solid var(--border-strong); }
+
+/* ROADMAP */
+.roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.roadmap-item { background: var(--surface); padding: 2rem 1.5rem; position: relative; transition: background 0.2s;   opacity: 0; transform: translateY(24px);
+}
+.roadmap-item.in { opacity: 1; transform: none; }
+.roadmap-item:hover { background: var(--surface-2); }
+.roadmap-item.now { background: var(--white); }
+.roadmap-item.now:hover { background: var(--off-white); }
+.roadmap-item.now .roadmap-period { color: var(--black); }
+.roadmap-item.now .roadmap-phase-label { color: #666; }
+.roadmap-item.now .roadmap-desc { color: #555; }
+.roadmap-item.now::after { content: 'Now'; position: absolute; top: 1rem; right: 1rem; font-family: var(--sans); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); background: var(--black); padding: 0.2rem 0.6rem; border-radius: 2px; }
+.roadmap-phase-label { font-family: var(--sans); font-size: 0.62rem; font-weight: 700; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.roadmap-period { font-family: var(--display); font-size: 1.3rem; font-weight: 800; color: var(--white); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: -0.01em; }
+.roadmap-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+
+/* CLOSING */
+.closing { background: var(--white); text-align: center; padding: 7rem 2rem; position: relative; overflow: hidden; }
+.closing-bg { position: absolute; font-family: var(--display); font-size: clamp(8rem, 20vw, 18rem); font-weight: 900; color: rgba(0,0,0,0.06); letter-spacing: -0.05em; top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; line-height: 1; text-transform: uppercase; }
+.closing-title { font-family: var(--display); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; line-height: 1; margin-bottom: 0.75rem; position: relative; text-transform: uppercase; letter-spacing: -0.02em; color: var(--black); }
+.closing-title em { color: transparent; -webkit-text-stroke: 1.5px var(--black); font-style: normal; }
+.closing-sub { font-family: var(--sans); font-size: 0.8rem; color: #888; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2.5rem; position: relative; }
+.closing-back { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--black); color: var(--white); padding: 0.9rem 2rem; border-radius: 2px; font-family: var(--sans); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-decoration: none; text-transform: uppercase; transition: opacity 0.2s, transform 0.15s; position: relative; }
+.closing-back:hover { opacity: 0.85; transform: translateY(-2px); }
+
+/* REVEAL */
+.reveal { opacity: 1; transform: none; transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.ready { opacity: 0; transform: translateY(28px); }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 0.9rem 1.5rem; }
+  .nav-divider, .nav-subtitle { display: none; }
+  .hero { padding: 6rem 1.5rem 4rem; }
+  .hero-stats { flex-wrap: wrap; }
+  .section { padding: 5rem 1.5rem; }
+  .quad { grid-template-columns: 1fr 1fr; }
+  .vision-split { grid-template-columns: 1fr; gap: 2.5rem; }
+  .how-split { grid-template-columns: 1fr; }
+  .assembly-split { grid-template-columns: 1fr; gap: 2.5rem; }
+  .journey { grid-template-columns: 1fr 1fr; }
+  .roadmap { grid-template-columns: 1fr 1fr; }
+  .scale-table th:nth-child(2), .scale-table td:nth-child(2) { display: none; }
+}
+@media (max-width: 540px) {
+  .hero-title, .hero-title-sub { font-size: clamp(4rem, 18vw, 6rem); }
+  .quad { grid-template-columns: 1fr; }
+  .journey { grid-template-columns: 1fr; }
+  .roadmap { grid-template-columns: 1fr; }
+  .hero-stats { gap: 0; flex-direction: column; }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--border); }
+  .hero-stat:last-child { border-bottom: none; }
+  .pull-quote { padding: 1.25rem 1.5rem; }
+}
+</style>
 </head>
 <body>
 
-    <!-- NAV -->
-    <nav class="nav">
-        <div class="nav-brand">Uber <span>Commute</span></div>
-    </nav>
+<nav>
+  <a href="/" class="nav-brand">
+    <span class="uber-wordmark">Uber</span>
+    <div class="nav-divider"></div>
+    <span class="nav-subtitle">Commute</span>
+  </a>
+  <a href="/" class="nav-back">← Portfolio</a>
+</nav>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <div class="hero-badge-dot"></div>
-                Strategic Product Plan
-            </div>
-            <h1>Uber<br><span>Commute</span></h1>
-            <p>Formalizing how billions already commute — shared rides, door-to-door, powered by Uber's platform.</p>
-            <div class="hero-author">by <strong>Manas Ghodinde</strong></div>
-        </div>
-    </section>
+<div class="hero">
+  <div class="hero-bg-text">COMMUTE</div>
+  <div class="hero-grid">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <style>
+          .route { fill: none; stroke: rgba(255,255,255,0.07); stroke-linecap: round; stroke-linejoin: round; }
+          .route-bright { fill: none; stroke: rgba(255,255,255,0.13); stroke-linecap: round; stroke-linejoin: round; }
+          .dot { fill: rgba(255,255,255,0.25); }
+          .dot-ring { fill: none; stroke: rgba(255,255,255,0.15); }
+          .pulse { fill: rgba(255,255,255,0.5); }
+          @keyframes dash1 { from { stroke-dashoffset: 600; } to { stroke-dashoffset: 0; } }
+          @keyframes dash2 { from { stroke-dashoffset: 800; } to { stroke-dashoffset: 0; } }
+          @keyframes dash3 { from { stroke-dashoffset: 500; } to { stroke-dashoffset: 0; } }
+          @keyframes pulse-dot { 0%,100% { opacity:0.5; r:4; } 50% { opacity:1; r:6; } }
+          @keyframes pulse-dot2 { 0%,100% { opacity:0.3; r:3; } 50% { opacity:0.8; r:5; } }
+          .anim1 { stroke-dasharray: 600; animation: dash1 8s linear infinite; }
+          .anim2 { stroke-dasharray: 800; animation: dash2 11s linear infinite 2s; }
+          .anim3 { stroke-dasharray: 500; animation: dash3 9s linear infinite 4s; }
+          .p1 { animation: pulse-dot 3s ease-in-out infinite; }
+          .p2 { animation: pulse-dot2 4s ease-in-out infinite 1s; }
+          .p3 { animation: pulse-dot 3.5s ease-in-out infinite 2s; }
+        </style>
+      </defs>
 
-    <!-- EXECUTIVE SUMMARY -->
-    <section class="section">
-        <div class="section-inner">
-            <div class="section-tag fade-up">Executive Summary</div>
-            <h2 class="section-title fade-up">The idea is simple.<br>The opportunity is massive.</h2>
-            <p class="section-subtitle fade-up">Group up to 5 commuters on the same corridor into one vehicle. Riders save 60-70%. Drivers earn more. Uber gets a daily habit.</p>
+      <!-- Main arterial roads - thick -->
+      <path class="route-bright" stroke-width="2" d="M0 350 Q200 300 400 320 Q600 340 800 280 Q1000 220 1200 260" />
+      <path class="route-bright" stroke-width="2" d="M0 500 Q150 480 300 450 Q500 410 700 430 Q900 450 1200 400" />
+      <path class="route-bright" stroke-width="1.5" d="M100 0 Q150 150 180 300 Q210 450 240 700" />
+      <path class="route-bright" stroke-width="1.5" d="M600 0 Q620 100 580 250 Q540 400 560 700" />
+      <path class="route-bright" stroke-width="1.5" d="M950 0 Q980 200 960 400 Q940 600 970 700" />
 
-            <div class="cards-grid fade-up">
-                <div class="card">
-                    <div class="card-icon green">👥</div>
-                    <h3>Shared Rides</h3>
-                    <p>Group up to 5 commuters on the same corridor into one vehicle, matched by destination zone.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon blue">📍</div>
-                    <h3>Door-to-Door</h3>
-                    <p>Not a bus stop or drop zone — your building. That's why riders pay more than public transit.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon yellow">💰</div>
-                    <h3>Everyone Wins</h3>
-                    <p>Riders save 60-70% vs solo cabs. Drivers earn more per trip. Uber gets a daily-use habit.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon red">🌍</div>
-                    <h3>Proven Model</h3>
-                    <p>Shared rickshaws, colectivos, matatus — billions already do this. Uber just adds the tech layer.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+      <!-- Secondary roads -->
+      <path class="route" stroke-width="1" d="M0 200 Q300 180 500 220 Q700 260 900 200 Q1050 160 1200 180" />
+      <path class="route" stroke-width="1" d="M0 600 Q200 580 450 560 Q650 540 850 570 Q1050 595 1200 580" />
+      <path class="route" stroke-width="1" d="M50 0 Q80 200 60 400 Q40 600 70 700" />
+      <path class="route" stroke-width="1" d="M350 0 Q370 150 340 350 Q310 550 360 700" />
+      <path class="route" stroke-width="1" d="M750 0 Q770 200 740 380 Q710 560 760 700" />
+      <path class="route" stroke-width="1" d="M1100 0 Q1120 250 1090 500 Q1060 650 1100 700" />
 
-    <!-- STRATEGIC VISION -->
-    <section class="section">
-        <div class="section-inner">
-            <div class="section-tag fade-up">Strategic Vision</div>
-            <h2 class="section-title fade-up">Not a new idea.<br>A better execution.</h2>
+      <!-- Connecting cross roads -->
+      <path class="route" stroke-width="0.75" d="M180 300 Q350 310 500 290 Q650 270 760 280" />
+      <path class="route" stroke-width="0.75" d="M240 450 Q400 440 560 430 Q720 420 870 440" />
+      <path class="route" stroke-width="0.75" d="M60 400 Q200 390 300 410 Q420 430 500 420" />
+      <path class="route" stroke-width="0.75" d="M760 280 Q870 270 960 290 Q1060 310 1090 300" />
 
-            <div class="vision-layout fade-up">
-                <div class="vision-mission">
-                    <h3>Our Mission</h3>
-                    <p>Take the shared rickshaw model — a system billions of people already use and trust — and give it the Uber treatment: pre-aggregated demand, guaranteed departure times, door-to-door service, and payment handled entirely by the platform.</p>
-                </div>
-                <div class="vision-pillars">
-                    <div class="vision-pillar">
-                        <div class="pillar-icon">🌐</div>
-                        <div>
-                            <h4>Global Scalability</h4>
-                            <p>Works in any city with concentrated employment zones and residential belts.</p>
-                        </div>
-                    </div>
-                    <div class="vision-pillar">
-                        <div class="pillar-icon">⚡</div>
-                        <div>
-                            <h4>Daily Utility</h4>
-                            <p>Transform Uber from an occasional service to a daily commute habit.</p>
-                        </div>
-                    </div>
-                    <div class="vision-pillar">
-                        <div class="pillar-icon">🤝</div>
-                        <div>
-                            <h4>Rider Trust</h4>
-                            <p>Platform handles payments, safety, and fairness — no trust needed between strangers.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      <!-- Animated highlight routes -->
+      <path class="route-bright anim1" stroke-width="1.5" d="M0 350 Q200 300 400 320 Q600 340 800 280 Q1000 220 1200 260" />
+      <path class="route-bright anim2" stroke-width="1.5" d="M100 0 Q150 150 180 300 Q210 450 240 700" />
+      <path class="route-bright anim3" stroke-width="1.5" d="M240 450 Q400 440 560 430 Q720 420 870 440" />
 
-    <!-- HOW IT WORKS -->
-    <section class="section">
-        <div class="section-inner">
-            <div class="section-tag fade-up">How It Works</div>
-            <h2 class="section-title fade-up">Grouping logic meets<br>distance-based pricing.</h2>
+      <!-- Intersection dots - pickup/dropoff points -->
+      <circle class="dot p1" cx="400" cy="320" r="4" />
+      <circle class="dot-ring" cx="400" cy="320" r="9" stroke-width="1" />
 
-            <div class="two-track fade-up">
-                <div class="track-card">
-                    <div class="track-header green-bg">🗂️ Grouping Logic</div>
-                    <div class="track-body">
-                        <h4>Matching Rules</h4>
-                        <ul>
-                            <li>Zone-based matching, door-to-door delivery</li>
-                            <li>Max 5 passengers per vehicle (sedan/SUV)</li>
-                            <li>All drop points within ~3 km radius</li>
-                            <li>Compatible arrival time windows</li>
-                        </ul>
-                        <h4>Fairness</h4>
-                        <ul>
-                            <li>Gender preference options available</li>
-                            <li>Stable group recognition over time</li>
-                            <li>Rotating drop order for fairness</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="track-card">
-                    <div class="track-header blue-bg">💰 Pricing Model</div>
-                    <div class="track-body">
-                        <h4>Distance-Based Fares</h4>
-                        <ul>
-                            <li>Individual distance-based fares per rider</li>
-                            <li>Swords (closest): €8</li>
-                            <li>Malahide (mid): €10</li>
-                            <li>Balbriggan (farthest): €14</li>
-                        </ul>
-                        <h4>Revenue</h4>
-                        <ul>
-                            <li>Driver earns combined total (~€35-40)</li>
-                            <li>Weekly/monthly subscription passes</li>
-                            <li>No split payments between riders</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      <circle class="dot p2" cx="180" cy="300" r="3" />
+      <circle class="dot-ring" cx="180" cy="300" r="7" stroke-width="1" />
 
-    <!-- USER EXPERIENCE JOURNEY -->
-    <section class="section">
-        <div class="section-inner">
-            <div class="section-tag fade-up">User Experience</div>
-            <h2 class="section-title fade-up">From discovery<br>to daily habit.</h2>
+      <circle class="dot p3" cx="760" cy="280" r="4" />
+      <circle class="dot-ring" cx="760" cy="280" r="9" stroke-width="1" />
 
-            <div class="journey-grid fade-up">
-                <div class="journey-card">
-                    <div class="journey-num">1</div>
-                    <h4>Discovery</h4>
-                    <p>Corridor suggestions based on ride history: "Save 60% with Uber Commute."</p>
-                </div>
-                <div class="journey-card">
-                    <div class="journey-num">2</div>
-                    <h4>Booking</h4>
-                    <p>Select zones, departure window, see fare and drop order before committing.</p>
-                </div>
-                <div class="journey-card">
-                    <div class="journey-num">3</div>
-                    <h4>Ride</h4>
-                    <p>Real-time tracking, transparent drop order, in-app individual payment.</p>
-                </div>
-                <div class="journey-card">
-                    <div class="journey-num">4</div>
-                    <h4>Retention</h4>
-                    <p>Savings tracker, referral credits, weekly subscription option.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+      <circle class="dot p2" cx="560" cy="430" r="3" />
+      <circle class="dot-ring" cx="560" cy="430" r="7" stroke-width="1" />
 
-    <!-- ASSEMBLY POINT -->
-    <section class="section">
-        <div class="section-inner">
-            <div class="section-tag fade-up">Assembly Point</div>
-            <h2 class="section-title fade-up">The morning pickup<br>starts at a café.</h2>
+      <circle class="dot p1" cx="960" cy="290" r="3.5" />
+      <circle class="dot-ring" cx="960" cy="290" r="8" stroke-width="1" />
 
-            <div class="assembly-layout fade-up">
-                <div class="assembly-explain">
-                    <h3>Why a Restaurant?</h3>
-                    <p>Morning pickups use a nearby café as the assembly point — not a bus stop or street corner. Riders get shelter, seating, and a coffee while waiting. The venue gets guaranteed daily foot traffic. Safety improves, especially for women commuters at early hours.</p>
-                </div>
-                <div class="assembly-benefits">
-                    <div class="benefit-card">
-                        <div class="benefit-icon">☕</div>
-                        <div>
-                            <h4>Comfort</h4>
-                            <p>Shelter, seating, washrooms, chai while you wait</p>
-                        </div>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon">🛡️</div>
-                        <div>
-                            <h4>Safety</h4>
-                            <p>Well-lit staffed venue vs. dark street corner</p>
-                        </div>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon">📈</div>
-                        <div>
-                            <h4>Revenue</h4>
-                            <p>Partner cafés earn from daily commuter foot traffic</p>
-                        </div>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon">🔄</div>
-                        <div>
-                            <h4>Habit Loop</h4>
-                            <p>Same place, same people, same coffee — hard to quit</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      <circle class="dot p3" cx="240" cy="450" r="3" />
+      <circle class="dot p2" cx="870" cy="440" r="3" />
+      <circle class="dot p1" cx="580" cy="250" r="3" />
+      <circle class="dot p3" cx="340" cy="350" r="2.5" />
+      <circle class="dot p2" cx="740" cy="380" r="2.5" />
+    </svg>
+  </div>
+  <div class="hero-tag">Product Strategy Case Study</div>
+  <h1 class="hero-title">Uber</h1>
+  <div class="hero-title-sub">Commute.</div>
+  <p class="hero-summary">Billions of people already share rides to work every day. <strong>Uber hasn't captured a single one of them.</strong> This is the strategy to change that.</p>
+  <p class="hero-byline">Strategic Product Plan by <strong>Manas Ghodinde</strong></p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="stat-num" data-count="70" data-suffix="%" data-prefix="60–">60–70%</div><div class="stat-label">Cost Savings</div></div>
+    <div class="hero-stat"><div class="stat-num" data-count="5" data-suffix="">5</div><div class="stat-label">Riders Per Trip</div></div>
+    <div class="hero-stat"><div class="stat-num" data-count="10" data-suffix="K+">10K+</div><div class="stat-label">Daily Riders Target</div></div>
+    <div class="hero-stat"><div class="stat-num">50+</div><div class="stat-label">Corridors</div></div>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</div>
 
-    <!-- GLOBAL SCALABILITY -->
-    <section class="section">
-        <div class="section-inner">
-            <div class="section-tag fade-up">Global Scalability</div>
-            <h2 class="section-title fade-up">One model.<br>Every major metro.</h2>
-            <p class="section-subtitle fade-up">The value proposition shifts by city, but the product stays the same.</p>
+<hr class="rule">
 
-            <div class="scale-table fade-up">
-                <div class="table-header">
-                    <span>City</span>
-                    <span>Key Corridor</span>
-                    <span>Value Proposition</span>
-                </div>
-                <div class="table-row">
-                    <span class="city">Mumbai</span>
-                    <span class="corridor">BKC ← Navi Mumbai, Thane</span>
-                    <span class="value">Comfort over crowded trains</span>
-                </div>
-                <div class="table-row">
-                    <span class="city">Delhi-NCR</span>
-                    <span class="corridor">Cyber City ← Noida, Dwarka</span>
-                    <span class="value">Comfort over crowded metro</span>
-                </div>
-                <div class="table-row">
-                    <span class="city">Bangalore</span>
-                    <span class="corridor">Whitefield ← Residential belts</span>
-                    <span class="value">Traffic relief</span>
-                </div>
-                <div class="table-row">
-                    <span class="city">London</span>
-                    <span class="corridor">Canary Wharf ← East London</span>
-                    <span class="value">Cost savings vs. solo rides</span>
-                </div>
-                <div class="table-row">
-                    <span class="city">Jakarta</span>
-                    <span class="corridor">CBD ← Bekasi, Tangerang</span>
-                    <span class="value">Reliability in traffic chaos</span>
-                </div>
-                <div class="table-row">
-                    <span class="city">San Francisco</span>
-                    <span class="corridor">Downtown ← East Bay</span>
-                    <span class="value">Avoid parking + second car</span>
-                </div>
-                <div class="table-note">Works wherever there's a concentrated employment zone + residential belt + existing commute pain</div>
-            </div>
-        </div>
-    </section>
+<!-- 01 EXECUTIVE SUMMARY -->
+<div class="section reveal">
+  <div class="eyebrow"><span class="eyebrow-num">01</span><div class="eyebrow-line"></div><span class="eyebrow-label">Executive Summary</span></div>
+  <h2 class="section-h">The idea is simple.<br><em>The opportunity</em> is massive.</h2>
+  <p class="section-sub">Group up to 5 commuters on the same corridor into one vehicle. Riders save 60–70%. Drivers earn more per trip. Uber gets a daily habit instead of an occasional ride.</p>
+  <div class="quad">
+    <div class="quad-card">
+      <div class="quad-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="quad-title">Shared Rides</div>
+      <div class="quad-desc">Group up to 5 commuters on the same corridor, matched by destination zone.</div>
+    </div>
+    <div class="quad-card">
+      <div class="quad-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="quad-title">Door-to-Door</div>
+      <div class="quad-desc">Not a bus stop or drop zone — your building. That's why riders pay more than public transit.</div>
+    </div>
+    <div class="quad-card">
+      <div class="quad-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="quad-title">Everyone Wins</div>
+      <div class="quad-desc">Riders save 60–70% vs solo cabs. Drivers earn more. Uber gets a daily-use habit.</div>
+    </div>
+    <div class="quad-card">
+      <div class="quad-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="quad-title">Proven Model</div>
+      <div class="quad-desc">Shared rickshaws, colectivos, matatus — billions already do this. Uber adds the tech layer.</div>
+    </div>
+  </div>
+</div>
 
-    <!-- LAUNCH STRATEGY -->
-    <section class="section">
-        <div class="section-inner">
-            <div class="section-tag fade-up">Launch Strategy</div>
-            <h2 class="section-title fade-up">Start small.<br>Scale fast.</h2>
+<hr class="rule">
 
-            <div class="timeline fade-up">
-                <div class="timeline-item">
-                    <div class="timeline-dot phase1">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><circle cx="12" cy="12" r="4"/></svg>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-period">Months 1–3</div>
-                        <h4>Proof of Concept</h4>
-                        <p>3 corridors in Mumbai, employer partnerships, manual ops, 10 rides/day target per corridor.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot phase2">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-period">Months 4–8</div>
-                        <h4>Algorithm & Scale</h4>
-                        <p>Automated matching, 15 corridors across Mumbai & Delhi, subscription model launch.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot phase3">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-period">Months 9–14</div>
-                        <h4>Multi-City Expansion</h4>
-                        <p>Bangalore, Hyderabad + 1 international market, automated corridor detection.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot phase4">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><polygon points="12 2 15 8.5 22 9.3 17 14 18.2 21 12 17.8 5.8 21 7 14 2 9.3 9 8.5"/></svg>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-period">Months 15–24</div>
-                        <h4>Platform Maturity</h4>
-                        <p>10+ cities globally, university corridors, transit integration, dynamic pricing.</p>
-                    </div>
-                </div>
-            </div>
+<!-- 02 STRATEGIC VISION -->
+<div class="section reveal">
+  <div class="eyebrow"><span class="eyebrow-num">02</span><div class="eyebrow-line"></div><span class="eyebrow-label">Strategic Vision</span></div>
+  <h2 class="section-h">Not a new idea.<br><em>A better</em> execution.</h2>
+  <div class="vision-split">
+    <div class="vision-body">
+      <p>Shared commutes have existed for decades — shared rickshaws in Mumbai, colectivos in Latin America, matatus in Kenya. Billions of people already trust this model. The problem isn't demand. It's coordination, safety, and reliability.</p>
+      <p>Uber has the GPS, the payment rails, the driver network, and the brand trust. The only thing missing is a product built specifically for the daily commute — pre-aggregated demand, guaranteed departure times, and door-to-door service.</p>
+      <p><strong>Take what billions already do informally and make it something they can rely on every morning.</strong></p>
+    </div>
+    <div class="vision-cards">
+      <div class="vision-card">
+        <div class="vision-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div><div class="vision-title">Global Scalability</div><div class="vision-desc">Works in any city with concentrated employment zones and residential belts.</div></div>
+      </div>
+      <div class="vision-card">
+        <div class="vision-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div><div class="vision-title">Daily Utility</div><div class="vision-desc">Transform Uber from an occasional service to a daily commute habit worth keeping.</div></div>
+      </div>
+      <div class="vision-card">
+        <div class="vision-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div><div class="vision-title">Rider Trust</div><div class="vision-desc">Platform handles payments, safety, and fairness — no trust needed between strangers.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-            <div class="stats-bar fade-up">
-                <div class="stat-item">
-                    <div class="stat-num">50+</div>
-                    <div class="stat-label">Corridors</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-num">5+</div>
-                    <div class="stat-label">Cities</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-num">10K+</div>
-                    <div class="stat-label">Daily Riders</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<hr class="rule">
 
-    <!-- SCROLL ANIMATION -->
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
+<!-- 03 HOW IT WORKS -->
+<div class="section reveal">
+  <div class="eyebrow"><span class="eyebrow-num">03</span><div class="eyebrow-line"></div><span class="eyebrow-label">How It Works</span></div>
+  <h2 class="section-h">Grouping logic meets<br><em>distance-based</em> pricing.</h2>
+  <p class="section-sub">The product has two moving parts — matching riders efficiently, and pricing them fairly. Both need to work before either one matters.</p>
+  <div class="how-split">
+    <div class="how-card primary">
+      <div class="how-card-label">Grouping Logic</div>
+      <div class="how-card-title">How riders get matched</div>
+      <ul class="how-list">
+        <li>Zone-based matching with door-to-door delivery</li>
+        <li>Max 5 passengers per vehicle (sedan or SUV)</li>
+        <li>All drop points within ~3 km radius</li>
+        <li>Compatible arrival time windows required</li>
+        <li>Gender preference options available</li>
+        <li>Stable group recognition builds over time</li>
+        <li>Rotating drop order ensures fairness</li>
+      </ul>
+    </div>
+    <div class="how-card">
+      <div class="how-card-label">Pricing Model</div>
+      <div class="how-card-title">Distance-based, per rider</div>
+      <ul class="how-list">
+        <li>Individual distance-based fares — no splitting</li>
+        <li>Swords (closest): €8 per rider</li>
+        <li>Malahide (mid-distance): €10 per rider</li>
+        <li>Balbriggan (farthest): €14 per rider</li>
+        <li>Driver earns combined total (~€35–40 per trip)</li>
+        <li>Weekly and monthly subscription passes</li>
+        <li>60–70% savings vs. solo ride for each rider</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pull-quote">
+    <p>Riders pay individually based on their distance, <em>not an equal split.</em> Fairness is what makes the group willing to ride together every single day.</p>
+  </div>
+</div>
 
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    </script>
+<hr class="rule">
 
+<!-- 04 USER JOURNEY -->
+<div class="section reveal">
+  <div class="eyebrow"><span class="eyebrow-num">04</span><div class="eyebrow-line"></div><span class="eyebrow-label">User Experience</span></div>
+  <h2 class="section-h">From discovery<br>to <em>daily habit.</em></h2>
+  <p class="section-sub">Each step is designed to feel obvious. By the fourth ride, people aren't thinking about it — they're just commuting.</p>
+  <div class="journey">
+    <div class="journey-step"><div class="journey-num">01</div><div class="journey-title">Discovery</div><div class="journey-desc">Corridor suggestions based on ride history. "Save 60% with Uber Commute" — shown at the moment it's most relevant.</div></div>
+    <div class="journey-step"><div class="journey-num">02</div><div class="journey-title">Booking</div><div class="journey-desc">Select zone and departure window. See fare and drop order before committing. No surprises.</div></div>
+    <div class="journey-step"><div class="journey-num">03</div><div class="journey-title">Ride</div><div class="journey-desc">Real-time tracking, transparent drop order, in-app individual payment. The group doesn't need to interact at all.</div></div>
+    <div class="journey-step"><div class="journey-num">04</div><div class="journey-title">Retention</div><div class="journey-desc">Savings tracker, referral credits, weekly subscription prompt. Every ride makes the next one easier to take.</div></div>
+  </div>
+</div>
+
+<hr class="rule">
+
+<!-- 05 ASSEMBLY POINT -->
+<div class="section reveal">
+  <div class="eyebrow"><span class="eyebrow-num">05</span><div class="eyebrow-line"></div><span class="eyebrow-label">Assembly Point</span></div>
+  <h2 class="section-h">The morning pickup<br>starts at <em>a café.</em></h2>
+  <div class="assembly-split">
+    <div class="assembly-body">
+      <p>Most shared ride schemes fail at the pickup. Standing on a dark street corner at 6am waiting for strangers isn't something people do twice.</p>
+      <p>Uber Commute uses a nearby café or restaurant as the assembly point — not a bus stop, not a street corner. Riders get shelter, seating, and a coffee while they wait. The venue gets guaranteed daily foot traffic from the same people every morning.</p>
+      <p><strong>Safety improves. The habit forms. The partnership pays for itself.</strong></p>
+    </div>
+    <div class="assembly-cards">
+      <div class="assembly-card">
+        <div class="assembly-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+        <div><div class="assembly-title">Comfort</div><div class="assembly-desc">Shelter, seating, washrooms, and chai while you wait — not a windswept bus stop.</div></div>
+      </div>
+      <div class="assembly-card">
+        <div class="assembly-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div><div class="assembly-title">Safety</div><div class="assembly-desc">Well-lit staffed venue — especially important for women commuting at early hours.</div></div>
+      </div>
+      <div class="assembly-card">
+        <div class="assembly-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <div><div class="assembly-title">Revenue</div><div class="assembly-desc">Partner cafés earn from guaranteed daily foot traffic — a partnership that makes them want to participate.</div></div>
+      </div>
+      <div class="assembly-card">
+        <div class="assembly-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+        <div><div class="assembly-title">Habit Loop</div><div class="assembly-desc">Same place, same people, same coffee every morning. Hard to break once it's set.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule">
+
+<!-- 06 GLOBAL SCALABILITY -->
+<div class="section reveal">
+  <div class="eyebrow"><span class="eyebrow-num">06</span><div class="eyebrow-line"></div><span class="eyebrow-label">Global Scalability</span></div>
+  <h2 class="section-h">One model.<br><em>Every</em> major metro.</h2>
+  <p class="section-sub">The value proposition shifts by city, but the product stays the same. Wherever there's a concentrated employment zone and a residential belt, there's a corridor.</p>
+  <table class="scale-table">
+    <thead><tr><th>City</th><th>Key Corridor</th><th>Value Proposition</th></tr></thead>
+    <tbody>
+      <tr><td>Mumbai</td><td>BKC ← Navi Mumbai, Thane</td><td>Comfort over crowded trains</td></tr>
+      <tr><td>Delhi-NCR</td><td>Cyber City ← Noida, Dwarka</td><td>Comfort over crowded metro</td></tr>
+      <tr><td>Bangalore</td><td>Whitefield ← Residential belts</td><td>Traffic relief</td></tr>
+      <tr><td>London</td><td>Canary Wharf ← East London</td><td>Cost savings vs. solo rides</td></tr>
+      <tr><td>Jakarta</td><td>CBD ← Bekasi, Tangerang</td><td>Reliability in traffic chaos</td></tr>
+      <tr><td>San Francisco</td><td>Downtown ← East Bay</td><td>Avoid parking + second car</td></tr>
+    </tbody>
+  </table>
+  <p class="scale-note">Works wherever there's a concentrated employment zone + residential belt + existing commute pain.</p>
+</div>
+
+<hr class="rule">
+
+<!-- 07 LAUNCH STRATEGY -->
+<div class="section reveal">
+  <div class="eyebrow"><span class="eyebrow-num">07</span><div class="eyebrow-line"></div><span class="eyebrow-label">Launch Strategy</span></div>
+  <h2 class="section-h">Start small.<br><em>Scale</em> fast.</h2>
+  <p class="section-sub">The launch is deliberately constrained — prove the model works on three corridors before touching the algorithm. Manual ops first, automation second.</p>
+  <div class="roadmap">
+    <div class="roadmap-item now">
+      <div class="roadmap-phase-label">Months 1–3</div>
+      <div class="roadmap-period">Proof of Concept</div>
+      <div class="roadmap-desc">3 corridors in Mumbai, employer partnerships, manual matching ops, 10 rides/day target per corridor.</div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase-label">Months 4–8</div>
+      <div class="roadmap-period">Algorithm & Scale</div>
+      <div class="roadmap-desc">Automated matching, 15 corridors across Mumbai and Delhi, subscription model launch.</div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase-label">Months 9–14</div>
+      <div class="roadmap-period">Multi-City</div>
+      <div class="roadmap-desc">Bangalore, Hyderabad + 1 international market, automated corridor detection from ride data.</div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase-label">Months 15–24</div>
+      <div class="roadmap-period">Platform Maturity</div>
+      <div class="roadmap-desc">10+ cities globally, university corridors, transit integration, dynamic pricing by corridor demand.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="closing-bg">UBER</div>
+  <h2 class="closing-title">Built by <em>Manas Ghodinde</em></h2>
+  <p class="closing-sub">MSc Business Analytics · University of Galway · 2025</p>
+  <a href="/" class="closing-back">← Back to Portfolio</a>
+</div>
+
+<script>
+(function() {
+  var reveals = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    reveals.forEach(function(el) { el.classList.add('visible'); });
+    return;
+  }
+  reveals.forEach(function(el) { el.classList.add('ready'); });
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        e.target.classList.remove('ready');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(function(el) { obs.observe(el); });
+  setTimeout(function() {
+    reveals.forEach(function(el) { el.classList.add('visible'); el.classList.remove('ready'); });
+  }, 2500);
+  // ── COUNTER ──
+  function animateCounter(el) {
+    var target = parseFloat(el.getAttribute('data-count'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    var duration = 1600;
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      var ease = 1 - Math.pow(1 - p, 3);
+      var val = Math.floor(target * ease);
+      if (el.id === 'stat-range') { el.textContent = '60–' + Math.floor(40 + 30 * ease) + '%'; return; }
+      el.textContent = val + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  document.querySelectorAll('[data-count]').forEach(function(el) { animateCounter(el); });
+
+  // ── JOURNEY STAGGER ──
+  var jSteps = document.querySelectorAll('.journey-step');
+  if ('IntersectionObserver' in window) {
+    var jObs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        jSteps.forEach(function(s, i) { setTimeout(function() { s.classList.add('in'); }, i * 120); });
+        jObs.disconnect();
+      }
+    }, { threshold: 0.1 });
+    if (jSteps[0]) jObs.observe(jSteps[0].parentElement);
+  } else { jSteps.forEach(function(s) { s.classList.add('in'); }); }
+
+  // ── ROADMAP STAGGER ──
+  var rmItems = document.querySelectorAll('.roadmap-item');
+  if ('IntersectionObserver' in window) {
+    var rmObs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        rmItems.forEach(function(item, i) { setTimeout(function() { item.classList.add('in'); }, i * 100); });
+        rmObs.disconnect();
+      }
+    }, { threshold: 0.1 });
+    if (rmItems[0]) rmObs.observe(rmItems[0].parentElement);
+  } else { rmItems.forEach(function(s) { s.classList.add('in'); }); }
+
+  // ── TABLE ROW STAGGER ──
+  var tableRows = document.querySelectorAll('.scale-table tbody tr');
+  if ('IntersectionObserver' in window) {
+    var tObs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        tableRows.forEach(function(row, i) { setTimeout(function() { row.classList.add('in'); }, i * 80); });
+        tObs.disconnect();
+      }
+    }, { threshold: 0.1 });
+    if (tableRows[0]) tObs.observe(tableRows[0].closest('table'));
+  } else { tableRows.forEach(function(r) { r.classList.add('in'); }); }
+
+})();
+</script>
 </body>
 </html>
